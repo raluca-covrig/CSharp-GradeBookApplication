@@ -7,19 +7,7 @@ namespace GradeBook.GradeBooks
 {
     public class RankedGradeBook:BaseGradeBook
     {
-        public ArrayList gradesArray {
-            get
-            {
-                return gradesArray;
-            }
-            set
-            {
-                foreach (Student s in Students)
-                    gradesArray.Add(s.AverageGrade);
-                gradesArray.Sort();
-            }
-        }
-        
+        ArrayList gradesArray = new ArrayList();
         public RankedGradeBook(string name):base(name)
         {
             Type = Enums.GradeBookType.Ranked;
@@ -31,7 +19,10 @@ namespace GradeBook.GradeBooks
             {
                 throw new InvalidOperationException("Ranked-grading requires a minimum of 5 students to work");
             }
-            
+            ArrayList gradesArray = new ArrayList();
+            foreach (Student s in Students)
+                gradesArray.Add(s.AverageGrade);
+            gradesArray.Sort();
             int studentsNumber = gradesArray.Count;
             if (averageGrade > (double)gradesArray[4*studentsNumber / 5])
                 return 'A';
